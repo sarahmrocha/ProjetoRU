@@ -8,7 +8,7 @@ public class MemoriaRepositorioCardapio implements RepositorioCardapio {
     private Map<LocalDate, CardapioDiario> banco = new HashMap<>();
 
     @Override public CardapioDiario obter (LocalDate data) {
-        return banco.getOrDefault(data, new CardapioDiario(data));
+        return banco.computeIfAbsent(data, k -> new CardapioDiario(k));
     }
 
     @Override
