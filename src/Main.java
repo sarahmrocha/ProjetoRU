@@ -1,32 +1,67 @@
 import Controller.ControleRU;
 import Controller.ISistemaRU;
 import View.TelaConfigCardapio;
+// Imports da TelaUsuario e TabPane foram removidos
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.net.URL;
+
+/**
+ * Classe principal da aplicação JavaFX.
+ * (Versão Simplificada)
+ * * Responsável por inicializar o sistema (Controller) e carregar
+ * a tela principal de configuração do cardápio (TelaConfigCardapio).
+ */
 public class Main extends Application {
 
+    /**
+     * Ponto de entrada principal para a aplicação JavaFX.
+     * Este método é chamado pelo runtime do JavaFX após o launch().
+     *
+     * @param primaryStage O "palco" principal (janela) da aplicação.
+     */
     @Override
     public void start(Stage primaryStage) {
-        // 1. Inicializa o backend (Controlador)
+        // 1. Inicializa o Controlador (backend)
         ISistemaRU controller = new ControleRU();
 
-        // 2. Inicializa a View (Tela de Configuração)
+        // 2. Cria a instância da Tela de Configuração
         TelaConfigCardapio telaConfig = new TelaConfigCardapio();
 
-        // 3. Cria a cena principal passando o controlador para a tela
-        // A tela de configuração será responsável por criar seu próprio layout
-        Scene scene = new Scene(telaConfig.criarTela(controller), 800, 600);
+        // 3. Cria o painel (layout) da tela
+        Pane painelAdmin = telaConfig.criarTela(controller);
 
-        // 4. Configura e exibe o "palco" (a janela principal)
+        // 4. Cria a Cena principal diretamente com o painel de admin
+        // (Removemos o TabPane)
+        Scene scene = new Scene(painelAdmin, 1000, 700);
+
+        // 5. Carrega o arquivo CSS para estilização
+        try {
+            URL cssUrl = getClass().getResource("/styles.css");
+            if (cssUrl != null) {
+                scene.getStylesheets().add(cssUrl.toExternalForm());
+            } else {
+                System.err.println("Erro: Arquivo 'styles.css' não encontrado na pasta 'resources'.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 6. Configura e exibe a Janela (Stage)
         primaryStage.setTitle("Gerenciamento do Cardápio RU");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
+    /**
+     * Método main padrão que lança a aplicação JavaFX.
+     *
+     * @param args Argumentos de linha de comando (não utilizados aqui).
+     */
     public static void main(String[] args) {
-        // O launch(args) é o método que inicia a aplicação JavaFX
         launch(args);
     }
 }

@@ -11,6 +11,7 @@ import Model.TipoRefeicao;
 import Model.RepositorioCardapio;
 import Model.MemoriaRepositorioCardapio;
 import Model.ConfiguracoesAplicacao;
+import Model.TipoPrato;
 
 /**
  * Controlador principal do sistema de gerenciamento do RU (Restaurante Universitário).*
@@ -102,23 +103,26 @@ public class ControleRU implements ISistemaRU {
      * gerarNovoId(), garantindo que cada item possa ser identificado
      * individualmente nas operações de edição, movimentação e remoção.
      *
-     * @param data data do cardápio onde o item será adicionado
+     * @param data data do cardápio
      * @param tipo tipo da refeição (ALMOCO ou JANTAR)
-     * @param nome nome/descrição do item do cardápio
+     * @param nome nome/descrição do item
+     * @param tipoPrato categoria do prato (ex: Principal, Salada)
      * @throws NullPointerException se qualquer parâmetro for nulo
      */
+
     @Override
-    public void adicionarItem(LocalDate data, TipoRefeicao tipo, String nome) {
+    public void adicionarItem(LocalDate data, TipoRefeicao tipo, String nome, TipoPrato tipoPrato) {
         Objects.requireNonNull(data, "Data não pode ser nula.");
         Objects.requireNonNull(tipo, "Tipo não pode ser nulo.");
         Objects.requireNonNull(nome, "Nome não pode ser nulo.");
+        Objects.requireNonNull(tipoPrato, "Tipo de prato não pode ser nulo."); // Nova verificação
 
         // Obtém o cardápio da data (cria se não existir)
         CardapioDiario cardapio = repositorio.obter(data);
 
         // Gera um ID único e cria o novo item
         long novoId = gerarNovoId();
-        ItemCardapio novoItem = new ItemCardapio(novoId, tipo, nome);
+        ItemCardapio novoItem = new ItemCardapio(novoId, tipo, nome, tipoPrato);
         cardapio.addItem(novoItem);
 
         // Persiste as alterações

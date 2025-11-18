@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import Model.CardapioDiario;
+import Model.TipoPrato;
 import Model.TipoRefeicao;
 
 public interface ISistemaRU {
@@ -12,7 +13,7 @@ public interface ISistemaRU {
 
     CardapioDiario obterCardapio(LocalDate data);
 
-    void adicionarItem(LocalDate data, TipoRefeicao tipo, String nome);
+    void adicionarItem(LocalDate data, TipoRefeicao tipo, String nome, TipoPrato tipoPrato);
 
     void editarItem(long idItem, String novoNome);
 
