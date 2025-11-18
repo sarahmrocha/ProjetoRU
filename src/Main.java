@@ -38,19 +38,7 @@ public class Main extends Application {
         // (Removemos o TabPane)
         Scene scene = new Scene(painelAdmin, 1000, 700);
 
-        // 5. Carrega o arquivo CSS para estilização
-        try {
-            URL cssUrl = getClass().getResource("/styles.css");
-            if (cssUrl != null) {
-                scene.getStylesheets().add(cssUrl.toExternalForm());
-            } else {
-                System.err.println("Erro: Arquivo 'styles.css' não encontrado na pasta 'resources'.");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // 6. Configura e exibe a Janela (Stage)
+        // 5. Configura e exibe a Janela (Stage)
         primaryStage.setTitle("Gerenciamento do Cardápio RU");
         primaryStage.setScene(scene);
         primaryStage.show();
