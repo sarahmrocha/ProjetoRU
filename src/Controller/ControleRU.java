@@ -27,9 +27,6 @@ public class ControleRU implements ISistemaRU {
     /** Repositório para armazenamento e recuperação de cardápios */
     private final RepositorioCardapio repositorio;
 
-    /** Configurações globais da aplicação (Singleton) */
-    private final ConfiguracoesAplicacao config;
-
     /**
      * Contador estático para geração de IDs únicos dos itens do cardápio.*
      * Este atributo é static para garantir que os IDs sejam únicos em toda
@@ -47,7 +44,7 @@ public class ControleRU implements ISistemaRU {
      */
     public ControleRU() {
         this.repositorio = new MemoriaRepositorioCardapio();
-        this.config = ConfiguracoesAplicacao.getInstancia();
+        ConfiguracoesAplicacao config = ConfiguracoesAplicacao.getInstancia();
     }
 
     /**
@@ -137,57 +134,6 @@ public class ControleRU implements ISistemaRU {
      * @throws IllegalArgumentException se o item não for encontrado
      * @throws NullPointerException se novoNome for nulo
      */
-    @Override
-    public void editarItem(long idItem, String novoNome) {
-        Objects.requireNonNull(novoNome, "Novo nome não pode ser nulo");
-
-        // Busca o item em todos os cardápios
-        ItemCardapio item = buscarItemPorId(idItem);
-
-        if (item == null) {
-            throw new IllegalArgumentException("Item com ID " + idItem + " não encontrado!");
-        }
-
-        // Atualiza o nome do item
-        item.setNome(novoNome);
-
-        // Persiste a alteração
-        CardapioDiario cardapio = buscarCardapioPorItemId(idItem);
-        if (cardapio != null) {
-            repositorio.salvar(cardapio);
-        }
-    }
-
-    /**
-     * Move um item de uma refeição para outra (almoço para jantar ou vice-versa).
-     *
-     * @param idItem ID único do item a ser movido
-     * @param novoTipo novo tipo de refeição (ALMOCO ou JANTAR)
-     * @throws IllegalArgumentException se o item não for encontrado
-     * @throws NullPointerException se novoTipo for nulo
-     */
-    @Override
-    public void moverItem(long idItem, TipoRefeicao novoTipo) {
-        Objects.requireNonNull(novoTipo, "Tipo de refeição não pode ser nulo");
-
-        // Busca o item e o cardápio que o contém
-        ItemCardapio item = buscarItemPorId(idItem);
-        CardapioDiario cardapio = buscarCardapioPorItemId(idItem);
-
-        if (item == null || cardapio == null) {
-            throw new IllegalArgumentException("Item com ID " + idItem + " não encontrado!");
-        }
-
-        // Remove o item da lista atual
-        cardapio.removeItem(idItem);
-
-        // Atualiza o tipo e adiciona na lista correta
-        item.setTipo(novoTipo);
-        cardapio.addItem(item);
-
-        // Persiste as alterações
-        repositorio.salvar(cardapio);
-    }
 
     /**
      * Remove permanentemente um item do cardápio.
@@ -235,15 +181,6 @@ public class ControleRU implements ISistemaRU {
         repositorio.salvar(cardapio);
     }
 
-    /**
-     * Obtém o link do boleto do RU configurado no sistema.
-     *
-     * @return URL do boleto ou null se não configurado
-     */
-    @Override
-    public String obterLinkBoleto() {
-        return config.getLinkBoleto();
-    }
 
     // ==================== Métodos Auxiliares Privados ====================
 
@@ -253,23 +190,6 @@ public class ControleRU implements ISistemaRU {
      * @param idItem ID do item procurado
      * @return ItemCardapio encontrado ou null se não existir
      */
-    private ItemCardapio buscarItemPorId(long idItem) {
-        for (CardapioDiario cardapio : repositorio.listar()) {
-            // Busca nos itens do almoço
-            for (ItemCardapio item : cardapio.getItensAlmoco()) {
-                if (item.getId() == idItem) {
-                    return item;
-                }
-            }
-            // Busca nos itens do jantar
-            for (ItemCardapio item : cardapio.getItensJantar()) {
-                if (item.getId() == idItem) {
-                    return item;
-                }
-            }
-        }
-        return null;
-    }
 
     /**
      * Busca o cardápio que contém um item específico.

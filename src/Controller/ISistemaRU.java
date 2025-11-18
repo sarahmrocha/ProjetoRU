@@ -15,14 +15,9 @@ public interface ISistemaRU {
 
     void adicionarItem(LocalDate data, TipoRefeicao tipo, String nome, TipoPrato tipoPrato);
 
-    void editarItem(long idItem, String novoNome);
-
-    void moverItem(long idItem, TipoRefeicao novoTipo);
-
     void removerItem(long idItem);
 
     void definirPublicado(LocalDate data, boolean publicado);
 
-    String obterLinkBoleto();
 
 }
