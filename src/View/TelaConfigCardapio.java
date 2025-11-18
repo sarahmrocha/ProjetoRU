@@ -120,11 +120,7 @@ public class TelaConfigCardapio {
         btnRemover.setOnAction(e -> removerItem());
         btnRemover.getStyleClass().addAll("button", "button-remove");
 
-        Button btnPublicar = new Button("Salvar Publicação");
-        btnPublicar.setOnAction(e -> publicarCardapio());
-        btnPublicar.getStyleClass().addAll("button", "button-publish");
-
-        HBox bottomButtonsLayout = new HBox(10, btnAdicionar, btnRemover, btnPublicar);
+        HBox bottomButtonsLayout = new HBox(10, btnAdicionar, btnRemover);
         bottomButtonsLayout.setAlignment(Pos.CENTER_RIGHT);
         mainLayout.setBottom(bottomButtonsLayout);
 
