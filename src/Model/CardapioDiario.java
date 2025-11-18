@@ -51,7 +51,6 @@ public class CardapioDiario {
      * Adiciona um item ao cardápio, colocando-o automaticamente na lista certa de acordo com o tipo de refeição
      * @param item item a ser adicionado
      */
-
     public void addItem (ItemCardapio item) {
         if (item.getTipo() == TipoRefeicao.ALMOCO) {
             itensAlmoco.add(item);
