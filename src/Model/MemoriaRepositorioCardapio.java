@@ -9,7 +9,7 @@ import java.util.Map;
  */
 public class MemoriaRepositorioCardapio implements RepositorioCardapio {
 
-    private Map<LocalDate, CardapioDiario> banco = new HashMap<>();
+    private static Map<LocalDate, CardapioDiario> banco = new HashMap<>();
 
     /**
      * Obtém o cardápio da data informada e se não existir, um novo pe criado e armazenado automaticamente
