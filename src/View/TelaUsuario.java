@@ -1,4 +1,1 @@
-package View;
-
-public class TelaUsuario {
-}
+//Vamos desconsiderar essa parte, vamos deixar só uma tela msm
