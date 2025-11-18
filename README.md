@@ -49,7 +49,7 @@ Para atender aos requisitos exigidos na disciplina, foram implementados os segui
 * **Objetivo:** Abstrair a camada de acesso a dados. Isso desacopla o `Controller` da forma como os dados são salvos (neste caso, em um `HashMap`), facilitando a migração futura para um banco de dados real (SQL).
 
 ## Diagrama UML
-![Diagrama UML](diagrama/diagrama-uml.png)
+![Diagrama UML](https://raw.githubusercontent.com/sarahmrocha/ProjetoRU/main/diagrama/Diagrama-UML.png)
 
 ## Atendimento aos Requisitos
 
@@ -69,6 +69,7 @@ Para atender aos requisitos exigidos na disciplina, foram implementados os segui
 * **Jamily Barbosa de Oliveira** 
 * **Samile Riquele** 
 * **Sarah Maria Rocha de Oliveira** 
+
 
 
 
