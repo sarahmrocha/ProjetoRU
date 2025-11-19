@@ -48,7 +48,8 @@ public class CardapioDiario {
     }
 
     /**
-     * Adiciona um item ao cardápio, colocando-o automaticamente na lista certa de acordo com o tipo de refeição
+     * Adiciona um item ao cardápio, colocando-o automaticamente na lista certa de
+     * acordo com o tipo de refeição
      * @param item item a ser adicionado
      */
     public void addItem (ItemCardapio item) {
